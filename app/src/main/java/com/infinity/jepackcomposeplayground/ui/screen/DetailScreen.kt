@@ -1,4 +1,4 @@
-package com.infinity.jepackcomposeplayground.screen
+package com.infinity.jepackcomposeplayground.ui.screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,17 +13,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.infinity.jepackcomposeplayground.Screen
+import com.infinity.jepackcomposeplayground.ui.Screen
 
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun DetailScreen(
+    navController: NavController
+) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(
             modifier = Modifier.clickable {
-                navController.navigate(route = Screen.Detail.route)
+                navController.navigate(route = Screen.Home.route){
+                    popUpTo(Screen.Home.route){
+                        inclusive = true
+                    }
+//                    remove stack detail and we are in home screen after that
+                }
             },
-            text = "Home Screen",
+            text = "Detail Screen",
             style = MaterialTheme.typography.headlineMedium,
             color = Color.Red,
             fontWeight = FontWeight.Bold
@@ -33,8 +40,8 @@ fun HomeScreen(navController: NavController) {
 
 @Composable
 @Preview(showBackground = true)
-fun HomeScreenPreview() {
-    HomeScreen(
+fun DetailScreenPreview() {
+    DetailScreen(
         navController = rememberNavController()
     )
 }
